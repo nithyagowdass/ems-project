@@ -3,6 +3,67 @@
 <head>
     <title>EMS - Dashboard</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* Full-screen layout */
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+        }
+
+        header {
+            background-color: #007bff;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        nav {
+            background-color: #e6e6e6;
+            padding: 10px;
+            text-align: center;
+        }
+
+        nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1000px;
+            margin: 20px auto;
+        }
+
+        .card {
+            background-color: white;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        h2 {
+            color: #007bff;
+            margin-bottom: 15px;
+        }
+    </style>
 </head>
 <body>
 
@@ -69,8 +130,6 @@
 </div>
 
 <script>
-
-// Check if logged in
 var user = localStorage.getItem("fullname");
 
 // Load registered events
@@ -89,7 +148,6 @@ function loadEvents() {
 // Register event
 function registerEvent(eventName) {
 
-    // ✅ New: check if user is logged in first
     if(!user){
         alert("Please login first to register for events!");
         return;
@@ -109,9 +167,8 @@ function registerEvent(eventName) {
     loadEvents();
 }
 
-// Load events when page opens
+// Load events on page load
 loadEvents();
-
 </script>
 
 </body>
