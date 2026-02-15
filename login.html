@@ -1,29 +1,28 @@
+<form id="loginForm">
+    <label>Email:</label><br>
+    <input type="email" id="loginEmail" required><br><br>
 
-<!DOCTYPE html>
-<html>
-<head>
-<title>EMS - Login</title>
-<link rel="stylesheet" href="style.css">
-</head>
-<body>
+    <label>Password:</label><br>
+    <input type="password" id="loginPassword" required><br><br>
 
-<header>
-    <h1>Event Management System</h1>
-</header>
-<nav>
-    <a href="index.html">Home</a>
-    <a href="login.html">Login</a>
-    <a href="register.html">Register</a>
-    <a href="admin.html">Admin</a>
-</nav>
+    <button type="submit">Login</button>
+</form>
 
-<div class="container">
-    <div class="card">
-        <h2>Login</h2>
-        <input type="text" placeholder="Username"><br>
-        <input type="password" placeholder="Password"><br>
-        <button onclick="alert('Login Successful'); window.location.href='dashboard.html';">Login</button>
-    </div>
-</div>
-</body>
-</html>
+<script>
+    document.getElementById("loginForm").addEventListener("submit", function(e){
+        e.preventDefault();
+        var email = document.getElementById("loginEmail").value.trim();
+        var password = document.getElementById("loginPassword").value;
+
+        var users = JSON.parse(localStorage.getItem("users")) || [];
+        var user = users.find(u => u.email === email && u.password === password);
+
+        if(user) {
+            // Save logged-in user fullname in localStorage
+            localStorage.setItem("fullname", user.fullname);
+            window.location.href = "dashboard.html";
+        } else {
+            alert("Invalid credentials!");
+        }
+    });
+</script>
