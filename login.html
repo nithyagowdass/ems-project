@@ -13,7 +13,7 @@
             align-items: center;
         }
 
-        .login-container {
+        .container {
             background: #fff;
             padding: 40px 30px;
             border-radius: 10px;
@@ -22,61 +22,19 @@
             text-align: center;
         }
 
-        h2 {
-            color: #007bff;
-            margin-bottom: 25px;
-        }
-
-        label {
-            font-weight: bold;
-            display: block;
-            margin-top: 10px;
-            text-align: left;
-        }
-
-        input[type="email"],
-        input[type="password"] {
-            width: 100%;
-            padding: 10px;
-            margin-top: 5px;
-            margin-bottom: 15px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            box-sizing: border-box;
-        }
-
-        button {
-            width: 100%;
-            padding: 12px;
-            border: none;
-            border-radius: 5px;
-            background-color: #007bff;
-            color: white;
-            font-size: 16px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #0056b3;
-        }
-
-        p {
-            margin-top: 20px;
-        }
-
-        a {
-            color: #007bff;
-            text-decoration: none;
-        }
-
-        a:hover {
-            text-decoration: underline;
-        }
+        h2 { color: #007bff; margin-bottom: 25px; }
+        label { display: block; text-align: left; margin-top: 10px; font-weight: bold; }
+        input { width: 100%; padding: 10px; margin-top: 5px; margin-bottom: 15px; border-radius: 5px; border: 1px solid #ccc; box-sizing: border-box; }
+        button { width: 100%; padding: 12px; border: none; border-radius: 5px; background-color: #007bff; color: white; font-size: 16px; cursor: pointer; }
+        button:hover { background-color: #0056b3; }
+        p { margin-top: 15px; }
+        a { color: #007bff; text-decoration: none; }
+        a:hover { text-decoration: underline; }
     </style>
 </head>
 <body>
 
-<div class="login-container">
+<div class="container">
     <h2>EMS Login</h2>
     <form id="loginForm">
         <label for="email">Email:</label>
@@ -91,28 +49,24 @@
 </div>
 
 <script>
-    document.getElementById("loginForm").addEventListener("submit", function(e){
-        e.preventDefault();
+document.getElementById("loginForm").addEventListener("submit", function(e) {
+    e.preventDefault();
 
-        // Get entered email and password
-        var email = document.getElementById("email").value.trim();
-        var password = document.getElementById("password").value;
+    var email = document.getElementById("email").value.trim();
+    var password = document.getElementById("password").value;
 
-        // Get users from localStorage
-        var users = JSON.parse(localStorage.getItem("users")) || [];
+    var users = JSON.parse(localStorage.getItem("users")) || [];
+    var user = users.find(u => u.email.toLowerCase() === email.toLowerCase() && u.password === password);
 
-        // Find user with matching email & password
-        var user = users.find(u => u.email === email && u.password === password);
-
-        if(user) {
-            // Save fullname to localStorage for dashboard and events
-            localStorage.setItem("fullname", user.fullname);
-            alert("Login successful! Welcome " + user.fullname);
-            window.location.href = "dashboard.html"; // Redirect to dashboard
-        } else {
-            alert("Invalid email or password. Please try again.");
-        }
-    });
+    if(user) {
+        // Save fullname for dashboard/events
+        localStorage.setItem("fullname", user.fullname);
+        alert("Login successful! Welcome " + user.fullname);
+        window.location.href = "dashboard.html";
+    } else {
+        alert("Invalid email or password!");
+    }
+});
 </script>
 
 </body>
