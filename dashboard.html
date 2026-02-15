@@ -3,6 +3,15 @@
 <head>
     <title>EMS - Dashboard</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        body { font-family: Arial, sans-serif; margin:0; padding:0; background:#f9f9f9; }
+        header { background:#007bff; color:white; padding:15px; text-align:center; }
+        nav { background:#333; overflow:hidden; }
+        nav a { color:white; padding:14px 20px; display:inline-block; text-decoration:none; }
+        nav a:hover { background:#575757; }
+        .container { padding:20px; }
+        #myEvents { list-style-type: disc; padding-left: 20px; }
+    </style>
 </head>
 <body>
 
@@ -11,82 +20,51 @@
 </header>
 
 <nav>
-    <a href="index.html">Home</a>
-    <a href="login.html">Logout</a>
+    <a href="dashboard.html">Home</a>
+    <a href="events.html">Events</a>
+    <a href="login.html" onclick="logout()">Logout</a>
 </nav>
 
 <div class="container">
+    <h2>Welcome, <span id="username"></span>!</h2>
 
-    <h2>Available Events</h2>
-
-    <div class="card">
-        <h3>Tech Fest 2026</h3>
-        <p>Date: March 10, 2026</p>
-        <button onclick="registerEvent('Tech Fest 2026')">Register</button>
-    </div>
-
-    <div class="card">
-        <h3>Cultural Night</h3>
-        <p>Date: April 5, 2026</p>
-        <button onclick="registerEvent('Cultural Night')">Register</button>
-    </div>
-
-    <div class="card">
-        <h3>Sports Meet</h3>
-        <p>Date: May 15, 2026</p>
-        <button onclick="registerEvent('Sports Meet')">Register</button>
-    </div>
-
-    <hr>
-
-    <h2>My Registered Events</h2>
+    <h3>My Registered Events</h3>
     <ul id="myEvents"></ul>
-
 </div>
 
 <script>
-
-// Check if logged in
-var user = localStorage.getItem("fullname");
-
-if (!user) {
-    alert("Please login first!");
-    window.location.href = "login.html";
-}
-
-// Load registered events
-function loadEvents() {
-    var events = JSON.parse(localStorage.getItem("events")) || [];
-    var list = document.getElementById("myEvents");
-    list.innerHTML = "";
-
-    events.forEach(function(event) {
-        var li = document.createElement("li");
-        li.textContent = event;
-        list.appendChild(li);
-    });
-}
-
-// Register event
-function registerEvent(eventName) {
-
-    var events = JSON.parse(localStorage.getItem("events")) || [];
-
-    if (events.includes(eventName)) {
-        alert("Already registered for this event!");
-        return;
+    // Check if user is logged in
+    var user = localStorage.getItem("fullname");
+    if (!user || user.trim() === "") {
+        alert("Please login first!");
+        window.location.href = "login.html";
     }
 
-    events.push(eventName);
-    localStorage.setItem("events", JSON.stringify(events));
+    document.getElementById("username").textContent = user;
 
-    alert(user + " successfully registered for " + eventName + "!");
+    // Load registered events for this user
+    function loadEvents() {
+        var allEvents = JSON.parse(localStorage.getItem("eventsByUser")) || {};
+        var events = allEvents[user] || [];
+
+        var list = document.getElementById("myEvents");
+        list.innerHTML = "";
+
+        events.forEach(function(event) {
+            var li = document.createElement("li");
+            li.textContent = event;
+            list.appendChild(li);
+        });
+    }
+
+    // Logout function
+    function logout() {
+        localStorage.removeItem("fullname");
+        window.location.href = "login.html";
+    }
+
+    // Load events when page opens
     loadEvents();
-}
-
-// Load events when page opens
-loadEvents();
-
 </script>
 
 </body>
