@@ -3,26 +3,32 @@
 <head>
     <title>EMS - Home</title>
     <style>
-        body, html { height:100%; margin:0; font-family: Arial,sans-serif; display:flex; justify-content:center; align-items:center; background:#f2f2f2;}
-        .container { background:#fff; padding:40px 30px; border-radius:10px; box-shadow:0 4px 10px rgba(0,0,0,0.2); width:400px; text-align:center;}
+        body, html { height:100%; margin:0; font-family: Arial,sans-serif; background:#f2f2f2; display:flex; justify-content:center; align-items:center; }
+        .container { background:#fff; padding:40px 30px; border-radius:10px; box-shadow:0 4px 10px rgba(0,0,0,0.2); width:400px; text-align:center; }
         h2 { color:#007bff; margin-bottom:20px; }
-        button { padding:12px 20px; border:none; border-radius:5px; background-color:#007bff; color:white; font-size:16px; cursor:pointer;}
-        button:hover { background-color:#0056b3;}
+        button { padding:12px 20px; margin:5px; border:none; border-radius:5px; background-color:#007bff; color:white; font-size:16px; cursor:pointer;}
+        button:hover { background-color:#0056b3; }
+        a { text-decoration:none; color:white; }
     </style>
 </head>
 <body>
 <div class="container">
     <h2>Welcome, <span id="username"></span>!</h2>
-    <p>Register for events below:</p>
-    <button id="goRegister">Register for Events</button>
+    <p>Manage your events easily using EMS</p>
+    
+    <button id="loginBtn"><a href="login.html">Login</a></button>
+    <button id="registerBtn"><a href="register.html">Register</a></button>
+    <button id="adminBtn"><a href="admin.html">Admin</a></button>
+    <br><br>
+    <button id="goEvents">Register for Events</button>
 </div>
 
 <script>
-var fullname = localStorage.getItem("fullname"); // Check if user is logged in
+var fullname = localStorage.getItem("fullname");
 document.getElementById("username").textContent = fullname ? fullname : "Guest";
 
-document.getElementById("goRegister").addEventListener("click", function(){
-    if(fullname){ 
+document.getElementById("goEvents").addEventListener("click", function(){
+    if(fullname){
         // User is logged in → go to events page
         window.location.href = "events.html";
     } else {
