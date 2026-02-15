@@ -13,7 +13,7 @@
             align-items: center;
         }
 
-        .register-container {
+        .container {
             background: #fff;
             padding: 40px 30px;
             border-radius: 10px;
@@ -22,62 +22,19 @@
             text-align: center;
         }
 
-        h2 {
-            color: #007bff;
-            margin-bottom: 25px;
-        }
-
-        label {
-            font-weight: bold;
-            display: block;
-            margin-top: 10px;
-            text-align: left;
-        }
-
-        input[type="text"],
-        input[type="email"],
-        input[type="password"] {
-            width: 100%;
-            padding: 10px;
-            margin-top: 5px;
-            margin-bottom: 15px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            box-sizing: border-box;
-        }
-
-        button {
-            width: 100%;
-            padding: 12px;
-            border: none;
-            border-radius: 5px;
-            background-color: #007bff;
-            color: white;
-            font-size: 16px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #0056b3;
-        }
-
-        p {
-            margin-top: 20px;
-        }
-
-        a {
-            color: #007bff;
-            text-decoration: none;
-        }
-
-        a:hover {
-            text-decoration: underline;
-        }
+        h2 { color: #007bff; margin-bottom: 25px; }
+        label { display: block; text-align: left; margin-top: 10px; font-weight: bold; }
+        input { width: 100%; padding: 10px; margin-top: 5px; margin-bottom: 15px; border-radius: 5px; border: 1px solid #ccc; box-sizing: border-box; }
+        button { width: 100%; padding: 12px; border: none; border-radius: 5px; background-color: #007bff; color: white; font-size: 16px; cursor: pointer; }
+        button:hover { background-color: #0056b3; }
+        p { margin-top: 15px; }
+        a { color: #007bff; text-decoration: none; }
+        a:hover { text-decoration: underline; }
     </style>
 </head>
 <body>
 
-<div class="register-container">
+<div class="container">
     <h2>EMS Register</h2>
     <form id="registerForm">
         <label for="fullname">Full Name:</label>
@@ -95,35 +52,28 @@
 </div>
 
 <script>
-    document.getElementById("registerForm").addEventListener("submit", function(e){
-        e.preventDefault();
+document.getElementById("registerForm").addEventListener("submit", function(e) {
+    e.preventDefault();
 
-        var fullname = document.getElementById("fullname").value.trim();
-        var email = document.getElementById("email").value.trim();
-        var password = document.getElementById("password").value;
+    var fullname = document.getElementById("fullname").value.trim();
+    var email = document.getElementById("email").value.trim();
+    var password = document.getElementById("password").value;
 
-        if(fullname === "" || email === "" || password === "") {
-            alert("Please fill all fields");
-            return;
-        }
+    if(fullname === "" || email === "" || password === "") {
+        alert("Please fill all fields!");
+        return;
+    }
 
-        // Get users from localStorage or initialize
-        var users = JSON.parse(localStorage.getItem("users")) || [];
+    // Load existing users or initialize empty array
+    var users = JSON.parse(localStorage.getItem("users")) || [];
 
-        // Check if email exists
-        var exists = users.some(u => u.email.toLowerCase() === email.toLowerCase());
-        if(exists) {
-            alert("Email already registered!");
-            return;
-        }
+    // Save new user (no email check)
+    users.push({ fullname: fullname, email: email, password: password });
+    localStorage.setItem("users", JSON.stringify(users));
 
-        // Add new user
-        users.push({fullname: fullname, email: email, password: password});
-        localStorage.setItem("users", JSON.stringify(users));
-
-        alert("Registration successful! You can now login.");
-        window.location.href = "login.html";
-    });
+    alert("Registration successful! You can now login.");
+    window.location.href = "login.html";
+});
 </script>
 
 </body>
