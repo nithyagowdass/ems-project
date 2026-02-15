@@ -38,43 +38,4 @@
     <h2>EMS Register</h2>
     <form id="registerForm">
         <label for="fullname">Full Name:</label>
-        <input type="text" id="fullname" required>
-
-        <label for="email">Email:</label>
-        <input type="email" id="email" required>
-
-        <label for="password">Password:</label>
-        <input type="password" id="password" required>
-
-        <button type="submit">Register</button>
-    </form>
-    <p>Already have an account? <a href="login.html">Login here</a></p>
-</div>
-
-<script>
-document.getElementById("registerForm").addEventListener("submit", function(e) {
-    e.preventDefault();
-
-    var fullname = document.getElementById("fullname").value.trim();
-    var email = document.getElementById("email").value.trim();
-    var password = document.getElementById("password").value;
-
-    if(fullname === "" || email === "" || password === "") {
-        alert("Please fill all fields!");
-        return;
-    }
-
-    // Load users from localStorage or create new array
-    var users = JSON.parse(localStorage.getItem("users")) || [];
-
-    // Save new user (no email check)
-    users.push({ fullname: fullname, email: email, password: password });
-    localStorage.setItem("users", JSON.stringify(users));
-
-    alert("Registration successful! You can now login.");
-    window.location.href = "login.html";
-});
-</script>
-
-</body>
-</html>
+        <input type="text" id="fullname" require
