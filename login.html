@@ -3,37 +3,19 @@
 <head>
     <title>EMS - Login</title>
     <style>
-        body, html {
-            height: 100%;
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #f2f2f2;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .container {
-            background: #fff;
-            padding: 40px 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-            width: 350px;
-            text-align: center;
-        }
-
-        h2 { color: #007bff; margin-bottom: 25px; }
-        label { display: block; text-align: left; margin-top: 10px; font-weight: bold; }
-        input { width: 100%; padding: 10px; margin-top: 5px; margin-bottom: 15px; border-radius: 5px; border: 1px solid #ccc; box-sizing: border-box; }
-        button { width: 100%; padding: 12px; border: none; border-radius: 5px; background-color: #007bff; color: white; font-size: 16px; cursor: pointer; }
-        button:hover { background-color: #0056b3; }
-        p { margin-top: 15px; }
-        a { color: #007bff; text-decoration: none; }
-        a:hover { text-decoration: underline; }
+        body, html { height:100%; margin:0; font-family: Arial,sans-serif; display:flex; justify-content:center; align-items:center; background:#f2f2f2;}
+        .container { background:#fff; padding:40px 30px; border-radius:10px; box-shadow:0 4px 10px rgba(0,0,0,0.2); width:350px; text-align:center;}
+        h2 { color:#007bff; margin-bottom:25px; }
+        label { display:block; text-align:left; margin-top:10px; font-weight:bold; }
+        input { width:100%; padding:10px; margin-top:5px; margin-bottom:15px; border-radius:5px; border:1px solid #ccc; box-sizing:border-box; }
+        button { width:100%; padding:12px; border:none; border-radius:5px; background-color:#007bff; color:white; font-size:16px; cursor:pointer;}
+        button:hover { background-color:#0056b3;}
+        p { margin-top:15px; }
+        a { color:#007bff; text-decoration:none;}
+        a:hover { text-decoration:underline;}
     </style>
 </head>
 <body>
-
 <div class="container">
     <h2>EMS Login</h2>
     <form id="loginForm">
@@ -49,7 +31,7 @@
 </div>
 
 <script>
-document.getElementById("loginForm").addEventListener("submit", function(e) {
+document.getElementById("loginForm").addEventListener("submit", function(e){
     e.preventDefault();
 
     var email = document.getElementById("email").value.trim();
@@ -58,16 +40,14 @@ document.getElementById("loginForm").addEventListener("submit", function(e) {
     var users = JSON.parse(localStorage.getItem("users")) || [];
     var user = users.find(u => u.email.toLowerCase() === email.toLowerCase() && u.password === password);
 
-    if(user) {
-        // Save fullname for dashboard/events
-        localStorage.setItem("fullname", user.fullname);
+    if(user){
+        localStorage.setItem("fullname", user.fullname); // Save fullname
         alert("Login successful! Welcome " + user.fullname);
-        window.location.href = "dashboard.html";
+        window.location.href = "index.html"; // Go to home/dashboard page
     } else {
         alert("Invalid email or password!");
     }
 });
 </script>
-
 </body>
 </html>
