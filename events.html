@@ -75,12 +75,7 @@
 </div>
 
 <script>
-// Check if user is logged in
-var user = localStorage.getItem("fullname");
-if(!user){
-    alert("Please login first to register for events!");
-    window.location.href = "login.html"; // redirect to login if not logged in
-}
+// Keep same flow as before, no changes in layout
 
 // Load registered events
 function loadEvents(){
@@ -97,13 +92,14 @@ function loadEvents(){
 
 // Register event
 function registerEvent(eventName){
-    // Check again if user is logged in
+    // ✅ Check if user is logged in before registering
     var currentUser = localStorage.getItem("fullname");
     if(!currentUser){
-        alert("You must login first to register for events!");
-        return;
+        alert("Please login first to register for events!");
+        return; // stop registration if not logged in
     }
 
+    // Existing logic for event registration
     var events = JSON.parse(localStorage.getItem("events")) || [];
 
     if(events.includes(eventName)){
@@ -118,7 +114,7 @@ function registerEvent(eventName){
     loadEvents();
 }
 
-// Load events when page opens
+// Load events on page load
 loadEvents();
 </script>
 
