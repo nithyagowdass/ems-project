@@ -64,7 +64,7 @@ document.getElementById("registerForm").addEventListener("submit", function(e) {
         return;
     }
 
-    // Load existing users or initialize empty array
+    // Load users from localStorage or create new array
     var users = JSON.parse(localStorage.getItem("users")) || [];
 
     // Save new user (no email check)
