@@ -18,11 +18,17 @@
 </div>
 
 <script>
-var fullname = localStorage.getItem("fullname") || "Guest";
-document.getElementById("username").textContent = fullname;
+var fullname = localStorage.getItem("fullname"); // Check if user is logged in
+document.getElementById("username").textContent = fullname ? fullname : "Guest";
 
 document.getElementById("goRegister").addEventListener("click", function(){
-    window.location.href = "events.html"; // Go to events page
+    if(fullname){ 
+        // User is logged in → go to events page
+        window.location.href = "events.html";
+    } else {
+        // User not logged in → show alert
+        alert("Please login first to register for events!");
+    }
 });
 </script>
 </body>
