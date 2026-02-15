@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>EMS - Events</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body { font-family: Arial, sans-serif; margin:0; padding:0; background:#f9f9f9; }
+        header { background:#007bff; color:white; padding:15px; text-align:center; }
+        nav { background:#333; overflow:hidden; }
+        nav a { color:white; padding:14px 20px; display:inline-block; text-decoration:none; }
+        nav a:hover { background:#575757; }
+        .container { padding:20px; }
+        .card { background:white; padding:15px; margin:10px 0; border-radius:8px; box-shadow:0 2px 6px rgba(0,0,0,0.1); }
+        button { padding:8px 15px; border:none; background:#007bff; color:white; border-radius:4px; cursor:pointer; }
+        button:hover { background:#0056b3; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Event Management System - Events</h1>
+</header>
+
+<nav>
+    <a href="dashboard.html">Home</a>
+    <a href="events.html">Events</a>
+    <a href="login.html">Logout</a>
+</nav>
+
+<div class="container">
+
+    <h2>Available Events</h2>
+
+    <div class="card">
+        <h3>Tech Fest 2026</h3>
+        <p>Date: March 10, 2026</p>
+        <button onclick="registerEvent('Tech Fest 2026')">Register</button>
+    </div>
+
+    <div class="card">
+        <h3>Cultural Night</h3>
+        <p>Date: April 5, 2026</p>
+        <button onclick="registerEvent('Cultural Night')">Register</button>
+    </div>
+
+    <div class="card">
+        <h3>Sports Meet</h3>
+        <p>Date: May 15, 2026</p>
+        <button onclick="registerEvent('Sports Meet')">Register</button>
+    </div>
+
+    <div class="card">
+        <h3>Science Exhibition</h3>
+        <p>Date: June 20, 2026</p>
+        <button onclick="registerEvent('Science Exhibition')">Register</button>
+    </div>
+
+    <div class="card">
+        <h3>Art & Craft Fair</h3>
+        <p>Date: July 10, 2026</p>
+        <button onclick="registerEvent('Art & Craft Fair')">Register</button>
+    </div>
+
+    <div class="card">
+        <h3>Music Concert</h3>
+        <p>Date: August 25, 2026</p>
+        <button onclick="registerEvent('Music Concert')">Register</button>
+    </div>
+
+    <div class="card">
+        <h3>Drama Night</h3>
+        <p>Date: September 15, 2026</p>
+        <button onclick="registerEvent('Drama Night')">Register</button>
+    </div>
+
+    <div class="card">
+        <h3>Annual Farewell</h3>
+        <p>Date: October 30, 2026</p>
+        <button onclick="registerEvent('Annual Farewell')">Register</button>
+    </div>
+
+</div>
+
+<script>
+    // Check if user is logged in
+    var user = localStorage.getItem("fullname");
+    if (!user || user.trim() === "") {
+        alert("Please login first!");
+        window.location.href = "login.html";
+    }
+
+    // Register event function
+    function registerEvent(eventName) {
+        var allEvents = JSON.parse(localStorage.getItem("eventsByUser")) || {};
+        var events = allEvents[user] || [];
+
+        if (events.includes(eventName)) {
+            alert("Already registered for this event!");
+            return;
+        }
+
+        events.push(eventName);
+        allEvents[user] = events;
+        localStorage.setItem("eventsByUser", JSON.stringify(allEvents));
+
+        alert(user + " successfully registered for " + eventName + "!");
+    }
+</script>
+
+</body>
+</html>
