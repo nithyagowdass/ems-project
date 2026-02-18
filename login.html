@@ -1,48 +1,54 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>EMS - Login</title>
-    <style>
-        body, html { height:100%; margin:0; font-family: Arial,sans-serif; display:flex; justify-content:center; align-items:center; background:#f2f2f2;}
-        .container { background:#fff; padding:40px 30px; border-radius:10px; box-shadow:0 4px 10px rgba(0,0,0,0.2); width:350px; text-align:center;}
-        h2 { color:#007bff; margin-bottom:25px; }
-        label { display:block; text-align:left; margin-top:10px; font-weight:bold; }
-        input { width:100%; padding:10px; margin-top:5px; margin-bottom:15px; border-radius:5px; border:1px solid #ccc; box-sizing:border-box; }
-        button { width:100%; padding:12px; border:none; border-radius:5px; background-color:#007bff; color:white; font-size:16px; cursor:pointer;}
-        button:hover { background-color:#0056b3;}
-        p { margin-top:15px; }
-        a { color:#007bff; text-decoration:none;}
-        a:hover { text-decoration:underline;}
-    </style>
+    <title>Login</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="container">
-    <h2>EMS Login</h2>
-    <form id="loginForm">
-        <label for="email">Email:</label>
-        <input type="email" id="email" required>
-        <label for="password">Password:</label>
-        <input type="password" id="password" required>
-        <button type="submit">Login</button>
-    </form>
-    <p>Don't have an account? <a href="register.html">Register here</a></p>
+
+<a class="back-btn" href="index.html">⬅ Back</a>
+
+<header class="main-header">
+    <h1>University Event Coordination System</h1>
+</header>
+
+<div class="form">
+    <h2>User Login</h2>
+
+    <input type="email" id="email" placeholder="Enter Email" required>
+    <input type="password" id="password" placeholder="Enter Password" required>
+
+    <button onclick="loginUser()">Login</button>
+
+    <div id="messageBox" class="message-box"></div>
 </div>
 
 <script>
-document.getElementById("loginForm").addEventListener("submit", function(e){
-    e.preventDefault();
-    var email = document.getElementById("email").value.trim();
+function loginUser(){
+
+    var email = document.getElementById("email").value;
     var password = document.getElementById("password").value;
-    var users = JSON.parse(localStorage.getItem("users")) || [];
-    var user = users.find(u => u.email.toLowerCase() === email.toLowerCase() && u.password === password);
-    if(user){
-        localStorage.setItem("fullname", user.fullname);
-        alert("Login successful! Welcome " + user.fullname);
-        window.location.href = "index.html";
-    } else {
-        alert("Invalid email or password!");
+
+    if(email === "" || password === ""){
+        showMessage("Please fill all fields");
+        return;
     }
-});
+
+    localStorage.setItem("loggedIn","true");
+
+    showMessage("Login Successful ✓ Redirecting to Registration...");
+
+    setTimeout(function(){
+        window.location.href = "register.html";
+    },1500);
+}
+
+function showMessage(message){
+    var box = document.getElementById("messageBox");
+    box.innerHTML = message;
+    box.style.display = "block";
+}
 </script>
+
 </body>
 </html>
