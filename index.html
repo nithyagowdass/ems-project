@@ -1,41 +1,41 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>EMS - Home</title>
-    <style>
-        body, html { height:100%; margin:0; font-family: Arial,sans-serif; background:#f2f2f2; display:flex; justify-content:center; align-items:center; }
-        .container { background:#fff; padding:40px 30px; border-radius:10px; box-shadow:0 4px 10px rgba(0,0,0,0.2); width:400px; text-align:center; }
-        h2 { color:#007bff; margin-bottom:20px; }
-        button { padding:12px 20px; margin:5px; border:none; border-radius:5px; background-color:#007bff; color:white; font-size:16px; cursor:pointer;}
-        button:hover { background-color:#0056b3; }
-        a { text-decoration:none; color:white; }
-    </style>
+    <title>University Event Coordination System</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="container">
-    <h2>Welcome, <span id="username"></span>!</h2>
-    <p>Manage your events easily using EMS</p>
-    
-    <button id="loginBtn"><a href="login.html">Login</a></button>
-    <button id="registerBtn"><a href="register.html">Register</a></button>
-    <button id="adminBtn"><a href="admin.html">Admin</a></button>
-    <br><br>
-    <button id="goEvents">Register for Events</button>
-</div>
+
+<header class="main-header">
+    <h1>University Event Coordination System</h1>
+
+    <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="login.html">Login</a>
+        <a href="register.html">Register</a>
+        <a href="events.html">Events</a>
+        <a href="admin.html">Admin</a>
+        <a href="#" onclick="logout()">Logout</a>
+    </nav>
+</header>
+
+<section class="hero">
+    <h2>Empowering Campus Life Through Seamless Event Management</h2>
+    <p class="rule-text">
+        <strong>Important Rule:</strong><br>
+        Students must first <b>Login</b>, then complete <b>Account Registration</b>,
+        and only after that they can register for university events.
+    </p>
+</section>
 
 <script>
-var fullname = localStorage.getItem("fullname");
-document.getElementById("username").textContent = fullname ? fullname : "Guest";
-
-document.getElementById("goEvents").addEventListener("click", function(){
-    if(fullname){
-        // User is logged in → go to events page
-        window.location.href = "events.html";
-    } else {
-        // User not logged in → show alert
-        alert("Please login first to register for events!");
-    }
-});
+function logout(){
+    localStorage.removeItem("loggedIn");
+    localStorage.removeItem("accountRegistered");
+    alert("Logged out successfully");
+    window.location.href = "index.html";
+}
 </script>
+
 </body>
 </html>
