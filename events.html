@@ -1,174 +1,138 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>EMS - Dashboard</title>
+    <title>Events</title>
     <link rel="stylesheet" href="style.css">
-    <style>
-        /* Full-screen layout */
-        body, html {
-            height: 100%;
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #f2f2f2;
-        }
-
-        header {
-            background-color: #007bff;
-            color: white;
-            padding: 20px;
-            text-align: center;
-        }
-
-        nav {
-            background-color: #e6e6e6;
-            padding: 10px;
-            text-align: center;
-        }
-
-        nav a {
-            margin: 0 15px;
-            text-decoration: none;
-            color: #007bff;
-            font-weight: bold;
-        }
-
-        .container {
-            width: 90%;
-            max-width: 1000px;
-            margin: 20px auto;
-        }
-
-        .card {
-            background-color: white;
-            padding: 20px;
-            margin-bottom: 15px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        }
-
-        button {
-            padding: 10px 15px;
-            border: none;
-            border-radius: 5px;
-            background-color: #007bff;
-            color: white;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #0056b3;
-        }
-
-        h2 {
-            color: #007bff;
-            margin-bottom: 15px;
-        }
-    </style>
 </head>
 <body>
 
-<header>
-    <h1>Event Management System - Dashboard</h1>
+<a class="back-btn" href="index.html">⬅ Back</a>
+
+<header class="main-header">
+    <h1>University Event Coordination System</h1>
+
+    <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="login.html">Login</a>
+        <a href="register.html">Register</a>
+        <a href="events.html">Events</a>
+        <a href="admin.html">Admin</a>
+        <a href="#" onclick="logout()">Logout</a>
+    </nav>
 </header>
 
-<nav>
-    <a href="index.html">Home</a>
-    <a href="login.html">Logout</a>
-</nav>
+<h2 class="center">University Events</h2>
 
-<div class="container">
-
-    <h2>Available Events</h2>
+<div class="events">
 
     <div class="card">
-        <h3>Tech Fest 2026</h3>
-        <p>Date: March 10, 2026</p>
-        <button onclick="registerEvent('Tech Fest 2026')">Register</button>
+        <h3>Tech Symposium</h3>
+        <p>12 March 2026</p>
+        <button onclick="registerEvent('Tech Symposium')">Register</button>
     </div>
 
     <div class="card">
-        <h3>Cultural Night</h3>
-        <p>Date: April 5, 2026</p>
-        <button onclick="registerEvent('Cultural Night')">Register</button>
+        <h3>Hackathon</h3>
+        <p>25 March 2026</p>
+        <button onclick="registerEvent('Hackathon')">Register</button>
+    </div>
+
+    <div class="card">
+        <h3>Cultural Fest</h3>
+        <p>05 April 2026</p>
+        <button onclick="registerEvent('Cultural Fest')">Register</button>
     </div>
 
     <div class="card">
         <h3>Sports Meet</h3>
-        <p>Date: May 15, 2026</p>
+        <p>22 April 2026</p>
         <button onclick="registerEvent('Sports Meet')">Register</button>
     </div>
 
     <div class="card">
-        <h3>Art & Craft Exhibition</h3>
-        <p>Date: June 20, 2026</p>
-        <button onclick="registerEvent('Art & Craft Exhibition')">Register</button>
+        <h3>AI Workshop</h3>
+        <p>10 May 2026</p>
+        <button onclick="registerEvent('AI Workshop')">Register</button>
     </div>
 
     <div class="card">
-        <h3>Music Concert</h3>
-        <p>Date: July 10, 2026</p>
-        <button onclick="registerEvent('Music Concert')">Register</button>
+        <h3>Entrepreneurship Summit</h3>
+        <p>18 May 2026</p>
+        <button onclick="registerEvent('Entrepreneurship Summit')">Register</button>
     </div>
 
     <div class="card">
-        <h3>Science Workshop</h3>
-        <p>Date: August 5, 2026</p>
-        <button onclick="registerEvent('Science Workshop')">Register</button>
+        <h3>Robotics Expo</h3>
+        <p>02 June 2026</p>
+        <button onclick="registerEvent('Robotics Expo')">Register</button>
     </div>
 
     <div class="card">
-        <h3>Drama & Theatre Night</h3>
-        <p>Date: September 15, 2026</p>
-        <button onclick="registerEvent('Drama & Theatre Night')">Register</button>
+        <h3>Debate Championship</h3>
+        <p>14 June 2026</p>
+        <button onclick="registerEvent('Debate Championship')">Register</button>
     </div>
 
-    <hr>
+    <div class="card">
+        <h3>Music & Dance Night</h3>
+        <p>28 June 2026</p>
+        <button onclick="registerEvent('Music & Dance Night')">Register</button>
+    </div>
 
-    <h2>My Registered Events</h2>
-    <ul id="myEvents"></ul>
+    <div class="card">
+        <h3>Science Exhibition</h3>
+        <p>10 July 2026</p>
+        <button onclick="registerEvent('Science Exhibition')">Register</button>
+    </div>
+
+    <div class="card">
+        <h3>Startup Pitch Competition</h3>
+        <p>25 July 2026</p>
+        <button onclick="registerEvent('Startup Pitch Competition')">Register</button>
+    </div>
+
+    <div class="card">
+        <h3>Literary Fest</h3>
+        <p>08 August 2026</p>
+        <button onclick="registerEvent('Literary Fest')">Register</button>
+    </div>
 
 </div>
 
+<div id="messageBox" class="message-box"></div>
+
 <script>
-var user = localStorage.getItem("fullname");
+function registerEvent(eventName){
 
-// Load registered events
-function loadEvents() {
-    var events = JSON.parse(localStorage.getItem("events")) || [];
-    var list = document.getElementById("myEvents");
-    list.innerHTML = "";
-
-    events.forEach(function(event) {
-        var li = document.createElement("li");
-        li.textContent = event;
-        list.appendChild(li);
-    });
-}
-
-// Register event
-function registerEvent(eventName) {
-
-    if(!user){
-        alert("Please login first to register for events!");
+    if(localStorage.getItem("loggedIn") !== "true"){
+        alert("Please login first");
+        window.location.href = "login.html";
         return;
     }
 
-    var events = JSON.parse(localStorage.getItem("events")) || [];
-
-    if (events.includes(eventName)) {
-        alert("Already registered for this event!");
+    if(localStorage.getItem("accountRegistered") !== "true"){
+        alert("Please complete account registration first");
+        window.location.href = "register.html";
         return;
     }
 
-    events.push(eventName);
-    localStorage.setItem("events", JSON.stringify(events));
+    let data = JSON.parse(localStorage.getItem("registrations") || "[]");
+    data.push(eventName);
+    localStorage.setItem("registrations", JSON.stringify(data));
 
-    alert(user + " successfully registered for " + eventName + "!");
-    loadEvents();
+    showMessage("Event Registration Successful ✓");
 }
 
-// Load events on page load
-loadEvents();
+function showMessage(message){
+    var box = document.getElementById("messageBox");
+    box.innerHTML = message;
+    box.style.display = "block";
+}
+
+function logout(){
+    localStorage.clear();
+    window.location.href = "index.html";
+}
 </script>
 
 </body>
