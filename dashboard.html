@@ -1,72 +1,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>EMS - Dashboard</title>
+    <title>Admin Dashboard</title>
     <link rel="stylesheet" href="style.css">
-    <style>
-        body { font-family: Arial, sans-serif; margin:0; padding:0; background:#f9f9f9; }
-        header { background:#007bff; color:white; padding:15px; text-align:center; }
-        nav { background:#333; overflow:hidden; }
-        nav a { color:white; padding:14px 20px; display:inline-block; text-decoration:none; }
-        nav a:hover { background:#575757; }
-        .container { padding:20px; }
-        #myEvents { list-style-type: disc; padding-left: 20px; }
-    </style>
 </head>
 <body>
 
-<header>
-    <h1>Event Management System - Dashboard</h1>
+<a class="back-btn" href="admin.html">⬅ Back</a>
+
+<header class="main-header">
+    <h1>Admin Dashboard</h1>
 </header>
 
-<nav>
-    <a href="dashboard.html">Home</a>
-    <a href="events.html">Events</a>
-    <a href="login.html" onclick="logout()">Logout</a>
-</nav>
-
-<div class="container">
-    <h2>Welcome, <span id="username"></span>!</h2>
-
-    <h3>My Registered Events</h3>
-    <ul id="myEvents"></ul>
+<div class="form">
+    <h2>Registration Summary</h2>
+    <p id="total"></p>
 </div>
 
 <script>
-    // Check if user is logged in
-    var user = localStorage.getItem("fullname");
-    if (!user || user.trim() === "") {
-        alert("Please login first!");
-        window.location.href = "login.html";
-    }
-
-    document.getElementById("username").textContent = user;
-
-    // Load registered events for this user
-    function loadEvents() {
-        var allEvents = JSON.parse(localStorage.getItem("eventsByUser")) || {};
-        var events = allEvents[user] || [];
-
-        var list = document.getElementById("myEvents");
-        list.innerHTML = "";
-
-        events.forEach(function(event) {
-            var li = document.createElement("li");
-            li.textContent = event;
-            list.appendChild(li);
-        });
-    }
-
-    // Logout function
-    function logout() {
-        localStorage.removeItem("fullname");
-        window.location.href = "login.html";
-    }
-
-    // Load events when page opens
-    loadEvents();
+let list = JSON.parse(localStorage.getItem("registrations") || "[]");
+document.getElementById("total").innerHTML =
+"Total Event Registrations: " + list.length;
 </script>
 
 </body>
 </html>
-
